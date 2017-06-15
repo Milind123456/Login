@@ -8,8 +8,9 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
-    EditText username,password;
+    EditText username, password;
     DatabaseAdapter helper;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,12 +26,18 @@ public class MainActivity extends AppCompatActivity {
         String user = username.getText().toString();
         String pass = password.getText().toString();
 
-        long id = helper.insertdata(user,pass);
-        if (id<0){
-            Message.message(this,"Unsuccessful Signup");
+        long id = helper.insertdata(user, pass);
+        if (id < 0) {
+            Message.message(this, "Unsuccessful Signup");
+        } else {
+            Message.message(this, "successful");
         }
-        else{
-            Message.message(this,"successful");
-        }
+
+
+    }
+
+    public void viewData(View v) {
+        String data = helper.getAllData();
+        Message.message(this,data);
     }
 }

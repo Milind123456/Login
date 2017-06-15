@@ -72,7 +72,7 @@
         android:layout_marginStart="61dp"
         android:layout_marginTop="55dp"
         android:onClick="addUser"
-        android:text="Login" />
+        android:text="Signup" />
 
     <Button
         android:id="@+id/button2"
@@ -86,4 +86,17 @@
         android:layout_toRightOf="@+id/button"
         android:onClick = "viewData"
         android:text="View Details" />
+
+    <Button
+        android:id="@+id/button4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="64dp"
+        android:text="Check password"
+        android:onClick="getData1"/>
+
+    
+
 </RelativeLayout>

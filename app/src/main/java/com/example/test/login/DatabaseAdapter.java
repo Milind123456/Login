@@ -29,12 +29,12 @@ public class DatabaseAdapter {
 
     }
 
-    public String getAllData(){
+    public String getAllData() {
         SQLiteDatabase db = databaseHelper.getWritableDatabase();
-        String[] coloumns = {DatabaseHelper.UID,DatabaseHelper.NAME,DatabaseHelper.PASSWORD};
+        String[] coloumns = {DatabaseHelper.UID, DatabaseHelper.NAME, DatabaseHelper.PASSWORD};
         StringBuffer buffer = new StringBuffer();
-        Cursor cursor =  db.query(DatabaseHelper.TABLE_NAME,coloumns,null,null,null,null,null);
-        while(cursor.moveToNext()){
+        Cursor cursor = db.query(DatabaseHelper.TABLE_NAME, coloumns, null, null, null, null, null);
+        while (cursor.moveToNext()) {
             int index1 = cursor.getColumnIndex(DatabaseHelper.UID);
             int index2 = cursor.getColumnIndex(DatabaseHelper.NAME);
             int index3 = cursor.getColumnIndex(DatabaseHelper.PASSWORD);
@@ -42,9 +42,25 @@ public class DatabaseAdapter {
             int cid = cursor.getInt(index1);
             String username = cursor.getString(index2);
             String password = cursor.getString(index3);
-            buffer.append(cid+" "+username+" "+password+"\n");
+            buffer.append(cid + " " + username + " " + password + "\n");
         }
         return buffer.toString();
+    }
+
+    public String getData(String name) {
+        SQLiteDatabase db = databaseHelper.getWritableDatabase();
+        String[] coloumns = {DatabaseHelper.NAME,DatabaseHelper.PASSWORD};
+        StringBuffer buffer = new StringBuffer();
+        Cursor cursor = db.query(DatabaseHelper.TABLE_NAME,coloumns,DatabaseHelper.NAME+"='"+name+"'",null,null,null,null);
+        while (cursor.moveToNext()){
+            int index1 = cursor.getColumnIndex(DatabaseHelper.NAME);
+            int index2 = cursor.getColumnIndex(DatabaseHelper.PASSWORD);
+            String username = cursor.getString(index1);
+            String password = cursor.getString(index2);
+            buffer.append(username+" "+password);
+        }
+        return buffer.toString();
+
     }
 
     static class DatabaseHelper extends SQLiteOpenHelper {

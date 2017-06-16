@@ -49,17 +49,34 @@ public class DatabaseAdapter {
 
     public String getData(String name) {
         SQLiteDatabase db = databaseHelper.getWritableDatabase();
-        String[] coloumns = {DatabaseHelper.NAME,DatabaseHelper.PASSWORD};
+        String[] coloumns = {DatabaseHelper.NAME, DatabaseHelper.PASSWORD};
         StringBuffer buffer = new StringBuffer();
-        Cursor cursor = db.query(DatabaseHelper.TABLE_NAME,coloumns,DatabaseHelper.NAME+"='"+name+"'",null,null,null,null);
-        while (cursor.moveToNext()){
+        Cursor cursor = db.query(DatabaseHelper.TABLE_NAME, coloumns, DatabaseHelper.NAME + "='" + name + "'", null, null, null, null);
+        while (cursor.moveToNext()) {
             int index1 = cursor.getColumnIndex(DatabaseHelper.NAME);
             int index2 = cursor.getColumnIndex(DatabaseHelper.PASSWORD);
             String username = cursor.getString(index1);
             String password = cursor.getString(index2);
-            buffer.append(username+" "+password);
+            buffer.append(username + " " + password);
         }
         return buffer.toString();
+
+    }
+
+    public int deleteRow(){
+        SQLiteDatabase db = databaseHelper.getWritableDatabase();
+        String[] whereargs = {"8"};
+        int count = db.delete(DatabaseHelper.TABLE_NAME,DatabaseHelper.UID+" =? ",whereargs);
+        return count;
+    }
+
+    public int updateName(String oldName, String newName) {
+        SQLiteDatabase db = databaseHelper.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(DatabaseHelper.NAME, newName);
+        String[] whereargs = {oldName};
+        int count = db.update(DatabaseHelper.TABLE_NAME, contentValues, DatabaseHelper.NAME + " =? ", whereargs);
+        return count;
 
     }
 

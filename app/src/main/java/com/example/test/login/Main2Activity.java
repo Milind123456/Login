@@ -27,4 +27,13 @@ public class Main2Activity extends AppCompatActivity {
 
     }
 
+
+
+    public void update(View view) {
+        helper2.updateName("lulli","milzz");
+    }
+
+    public void delete(View view) {
+        helper2.deleteRow();
+    }
 }
